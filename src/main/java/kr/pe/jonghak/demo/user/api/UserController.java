@@ -2,13 +2,13 @@ package kr.pe.jonghak.demo.user.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @RestController
 @Slf4j
@@ -21,5 +21,10 @@ public class UserController {
         users.add(registeredUser);
         log.info("registered user: {}", registeredUser.getName());
         return ResponseEntity.ok(registeredUser);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getUsers() {
+        return ResponseEntity.ok(users);
     }
 }
