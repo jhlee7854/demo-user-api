@@ -13,18 +13,24 @@ import java.util.List;
 @RestController
 @Slf4j
 public class UserController {
+    private final UserRepository userRepository;
     private final List<User> users = new ArrayList<>();
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @PostMapping("/users")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User registeredUser = new User(user.getId(), user.getName(), user.getEmail());
-        users.add(registeredUser);
+        User registeredUser = userRepository.save(user);
         log.info("registered user: {}", registeredUser.getName());
         return ResponseEntity.ok(registeredUser);
     }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
+        List<User> users = userRepository.findAll();
+        log.info("response user list: {}", users);
         return ResponseEntity.ok(users);
     }
 }
