@@ -27,6 +27,7 @@ jobs:
 
       - name: Run build with Gradle Wrapper
         id: gradle_build
+        shell: bash
         run: ./gradlew test build --stacktrace --info | tee gradle-build.log
 
       - name: Upload Gradle build artifacts
