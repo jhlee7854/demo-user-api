@@ -6,12 +6,14 @@ plugins {
     id 'com.google.protobuf' version '0.9.4'
 }
 
+def targetJava = providers.gradleProperty("javaVersion").orElse("25").get()
+
 group = 'kr.pe.jonghak'
 version = '0.0.1-SNAPSHOT'
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(targetJava as int)
     }
 }
 
