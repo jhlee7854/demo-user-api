@@ -11,7 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment: dev
     steps:
       - name: Checkout project sources
         uses: actions/checkout@v4
