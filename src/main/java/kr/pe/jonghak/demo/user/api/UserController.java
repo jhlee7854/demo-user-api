@@ -7,22 +7,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Slf4j
 public class UserController {
     private final UserRepository userRepository;
-    private final List<User> users = new ArrayList<>();
-
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
     @PostMapping("/users")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User registeredUser = userRepository.save(user);
+        User userToRegister = new User(UUID.randomUUID().toString(), user.getName(), user.getEmail());
+        User registeredUser = userRepository.save(userToRegister);
         log.info("registered user: {}", registeredUser.getName());
         return ResponseEntity.ok(registeredUser);
     }
