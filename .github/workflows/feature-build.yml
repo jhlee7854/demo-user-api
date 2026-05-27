@@ -26,4 +26,18 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Run build with Gradle Wrapper
-        run: ./gradlew test build
+        id: gradle_build
+        run: ./gradlew test build --stacktrace --info | tee gradle-build.log
+
+      - name: Upload Gradle build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-artifacts-${{ github.run_number }}-${{ github.sha }}
+          retention-days: 14
+          if-no-files-found: warn
+          path: |
+            gradle-build.log
+            **/build/reports/**
+            **/build/test-results/**
+            **/build/libs/**
