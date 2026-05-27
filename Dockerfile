@@ -1,4 +1,4 @@
-FROM amazoncorretto:21-alpine
+FROM amazoncorretto:25-alpine
 LABEL authors="jonghak"
 
 COPY build/libs/*.jar app.jar
