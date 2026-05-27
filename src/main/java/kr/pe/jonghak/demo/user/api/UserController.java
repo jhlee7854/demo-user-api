@@ -1,6 +1,7 @@
 package kr.pe.jonghak.demo.user.api;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +29,7 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
-        List<User> users = userRepository.findAll();
-        log.info("response user list: {}", users);
-        return ResponseEntity.ok(users);
+        log.warn("blocked unauthenticated request to list all users");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 }
