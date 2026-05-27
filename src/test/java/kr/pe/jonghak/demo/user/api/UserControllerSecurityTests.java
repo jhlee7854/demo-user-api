@@ -42,7 +42,8 @@ class UserControllerSecurityTests {
     @WithMockUser(roles = "USER")
     void getUsersWithUserRoleReturnsForbidden() throws Exception {
         mockMvc.perform(get("/users"))
-                .andExpect(status().isForbidden());
+                .andExpect(status().isForbidden())
+                .andExpect(jsonPath("$.message").value("Access denied"));
     }
 
     @Test
